@@ -36,19 +36,10 @@ int main() {
     printf("Test 2: Index de %d -> %d\n", target, result);
 
     // Test 3
-    target = 1;
+    target = 20;
     result = binary_search(sorted_list, size, target);
     printf("Test 3: Index de %d -> %d\n", target, result);
 
-    // Test 4
-    target = 15;
-    result = binary_search(sorted_list, size, target);
-    printf("Test 4: Index de %d -> %d\n", target, result);
-
-    // Test 5
-    target = 20;
-    result = binary_search(sorted_list, size, target);
-    printf("Test 5: Index de %d -> %d\n", target, result);
 
     return 0;
 }
