@@ -16,7 +16,7 @@ int compare(const void *a, const void *b) {
     return ((Interval *)a)->start - ((Interval *)b)->start;
 }
 
-// Fonction pour fusionner les intervalles
+// 2. Fonction pour fusionner les intervalles
 void merge_intervals(Interval intervals[], int n) {
     // Étape 1 : Trier les intervalles par temps de début
     qsort(intervals, n, sizeof(Interval), compare);
@@ -38,7 +38,7 @@ void merge_intervals(Interval intervals[], int n) {
     }
 
     //3. Return the merged list of intervals.
-    printf("Merged intervals:\n");
+    printf("Merged intervals: ");
     for (int i = 0; i < merged_count; i++) {
         printf("(%d, %d) ", merged[i].start, merged[i].end);
     }
