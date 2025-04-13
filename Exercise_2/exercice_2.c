@@ -85,7 +85,7 @@ void dfs(Graph* graph, int start) {
     printf("\n");
 }
 
-// Check connectivity and find shortest path using BFS
+// Check connectivity and find the path using BFS
 int isConnected(Graph* graph, int start, int end) {
     int visited[MAX_NODES] = {0};
     int queue[MAX_NODES];
@@ -127,22 +127,50 @@ int isConnected(Graph* graph, int start, int end) {
 }
 
 int main() {
-    Graph* graph = createGraph(6); // Create a graph with 6 locations
+    Graph* graph = createGraph(8); // Create a graph with 8 locations
 
-    addEdge(graph, 0, 1);
-    addEdge(graph, 0, 2);
-    addEdge(graph, 1, 3);
-    addEdge(graph, 1, 4);
-    addEdge(graph, 2, 5);
+    // Add edges based on the example graph
+    // A-B-C-D-E
+    addEdge(graph, 0, 1); // A-B
+    addEdge(graph, 0, 2); // A-C
+    addEdge(graph, 1, 3); // B-D
+    addEdge(graph, 1, 4); // B-E
+    addEdge(graph, 2, 4); // C-E
+    addEdge(graph, 3, 4); // D-E
+    addEdge(graph, 3, 5); // D-F
 
-    bfs(graph, 0);
-    dfs(graph, 0);
+    // G-H-I (second component)
+    addEdge(graph, 6, 7); // G-H
 
-    int start = 0, end = 4;
+    // Run BFS and DFS
+    printf("BFS Traversal from A:\nInput: BFS(graph, \"A\")\n");
+    bfs(graph, 0); // Start from A (0)
+
+    printf("DFS Traversal from A:\nInput: DFS(graph, \"A\", visited)\n");
+    dfs(graph, 0); // Start from A (0)
+
+    // Check connectivity and find path from A (0) to F (5)
+    int start = 0, end = 5; // A to F
     if (isConnected(graph, start, end)) {
-        printf("Locations %d and %d are connected.\n", start, end);
+        printf("Connectivity Check:\nInput: are_connected(graph, \"A\", \"F\")\nOutput: True\n");
     } else {
-        printf("Locations %d and %d are not connected.\n", start, end);
+        printf("Connectivity Check:\nInput: are_connected(graph, \"A\", \"F\")\nOutput: False\n");
+    }
+
+    // Find shortest path from A (0) to F (5)
+    if (isConnected(graph, start, end)) {
+        int path[MAX_NODES], pathIndex = 0;
+        int parent[MAX_NODES] = {-1};
+        // Re-run BFS to find the path
+        isConnected(graph, start, end); // Populate parent array for path
+        printf("Find Shortest Path:\nInput: shortest_path(graph, \"A\", \"F\")\nOutput: [");
+        for (int v = end; v != -1; v = parent[v]) {
+            path[pathIndex++] = v;
+        }
+        for (int i = pathIndex - 1; i > 0; i--) {
+            printf("%d, ", path[i]);
+        }
+        printf("%d]\n", path[0]); // Print the last element without a comma
     }
 
     return 0;
